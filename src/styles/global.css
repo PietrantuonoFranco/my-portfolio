@@ -1,1 +1,44 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lavishly+Yours&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+body {
+    font-family: Figtree, sans-serif, Arial, Helvetica;
+}
+
+.bg-light-color {
+    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+}
+
+.bg-light-blue {
+    background-color: #0093E9;
+    background-image: linear-gradient(-160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.bg-night {
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+    background-blend-mode: multiply;
+}
+
+.bg-dark-blue {
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+}
+
+.bg-dark-gradient {
+    /*background-image: radial-gradient(circle, #111317, #15171b, #191b1f, #1d1f24, #212328);*/
+    background-image: radial-gradient(circle, #393939, #333333, #2d2d2e, #272728, #212123, #1e1e21, #1b1c1e, #18191c, #17181c, #17171b, #16161b, #16151a, #16151a, #16151a, #16151a, #16151a, #16151a, #16151a);
+}
+
+.border-green-gradient { 
+    border: 2px solid linear-gradient(to right top, #63aa35, #72ba32, #83cb2c, #95db23, #a8eb12);
+}
+
+@theme {
+    --color-my-red: #DF2935;
+    --color-my-black: #02020A;
+    --color-my-yellow: #E9DF00;
+    --color-my-white: #FEFCFB;
+    --color-my-gray: #E5E7EB55;
+    --color-my-dark-gray: #303030;
+}

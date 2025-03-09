@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+    const projects = await getCollection('projects');
+
+    return projects.map((project) => ({
+        params: { id: project.slug },
+        props: { project }
+    }));
+}
+
+const { project } = Astro.props;
+const { data, slug } = project;
+const { title, img } = data;
+
+const { Content } = await render(project);
+
+export const prerender = true;
+---
+
+<Layout title={`Project - ${title}`}>
+  <div class="w-full flex">
+    <aside>
+      <img
+        transition:name={`logo-${slug}`}
+        src={img}
+        alt=`Logo de ${slug}`
+        class="max-h-25 drop-shadow-md">
+    </aside>
+    <div class="p-10 flex flex-col justify-center items-center text-center space-y-10">
+      <h1 class="text-4xl font-bold mb-4">{ title }</h1>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </div>
+</Layout>

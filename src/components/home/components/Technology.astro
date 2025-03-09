@@ -1,0 +1,11 @@
+---
+const { key, htmlString } = Astro.props;
+
+---
+
+<div class="group flex flex-col items-center gap-y-3">
+    <div class="hover:drop-shadow-md hover:scale-105" set:html={htmlString}></div>
+    <p class="text-my-white text-sm invisible group-hover:visible transition-all duration-100">
+      {key}
+    </p>
+  </div>

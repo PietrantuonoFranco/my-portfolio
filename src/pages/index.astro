@@ -1,11 +1,20 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+// SE EJECUTA EN EL SERVIDOR
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+//import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+import { MAIL } from 'astro:env/server';
+import Projects from '../components/home/Projects.astro';
+import AboutMe from '../components/home/AboutMe.astro';
+import Skills from '../components/home/Skills.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title='Pietrantuono Franco'>
+	<main class="min-h-screen w-full space-y-6">
+        <AboutMe />
+        
+        <Projects />
+        
+        <Skills />
+	</main>
 </Layout>

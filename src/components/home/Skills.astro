@@ -1,0 +1,29 @@
+---
+import { getCollection } from "astro:content";
+import Technology from "./components/Technology.astro";
+import { LANGUAGE } from "astro:env/server";
+
+const technologies = await getCollection('technologies');
+
+---
+
+<section id="skills" class="mb-16 space-y-6">
+  <h2 class="text-center text-5xl text-my-white font-semibold">{ LANGUAGE === "en" ? "Skills" : "Habilidades" }</h2>
+
+  <div class="w-full h-[1px] bg-[#E5E7EB55]"></div>
+
+  <div class="flex flex-wrap justify-center items-center gap-5">
+    {technologies.map((technology) => {
+      const { data } = technology;
+      const { name, svg } = data;
+
+      if (svg) {
+        return (
+          <Technology key={name} htmlString={svg} />
+        );
+      }
+
+      return null;
+    })}    
+  </div>
+</section>
