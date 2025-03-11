@@ -1,0 +1,29 @@
+---
+const supportedLanguages: string[] = ['es', 'en'];
+const defaultLanguage: string = 'en';
+
+let language = defaultLanguage;
+
+// Determinar el idioma a usar
+
+// Obtener la ruta actual
+const currentPath: string = Astro.url.pathname;
+const languageSegment: string = currentPath.split('/')[1];
+
+// Verificar si el segmento de idioma es válido
+if (!languageSegment || !supportedLanguages.includes(languageSegment)) {
+  // Obtener el idioma preferido del encabezado HTTP
+  const acceptLanguage = Astro.request.headers.get('accept-language');
+  const userLanguage = acceptLanguage?.split(',')[0]; // Obtiene el primer idioma preferido (por ejemplo, "es-ES")
+  const primaryLanguage = userLanguage?.split('-')[0]; // Extrae el código principal (por ejemplo, "es")
+
+  if (primaryLanguage && supportedLanguages.includes(primaryLanguage)) {
+    return Astro.redirect(`/${primaryLanguage}`);
+  } else {
+    // Redireccionar a la ruta con el idioma detectado o por defecto
+    return Astro.redirect(`/${defaultLanguage}`);
+  }
+}
+
+return Astro.redirect('/en')
+---
