@@ -21,6 +21,7 @@ const aboutMe = defineCollection ({
 const projects = defineCollection({
   schema: z.object({
     title: z.string(),
+    members:  z.array(z.string()),
     description: z.object({
       es: z.string(),
       en: z.string(),
@@ -32,6 +33,25 @@ const projects = defineCollection({
   }),
 });
 
+const softSkills = defineCollection({
+  schema: z.object({
+    en: z.object({
+      name: z.string(),
+      skills: z.array(z.string()),
+    }),
+    es: z.object({
+      name: z.string(),
+      skills: z.array(z.string()),
+    }),
+  }),
+});
+
+const stack = defineCollection({
+  schema: z.object({
+    technologiesNames: z.array(z.string()),
+  }),
+});
+
 const technologies = defineCollection({
   schema: z.object({
     name: z.string(),
@@ -39,4 +59,4 @@ const technologies = defineCollection({
   }),
 });
 
-export const collections = { aboutMe, projects, technologies };
+export const collections = { aboutMe, projects, softSkills, stack, technologies };

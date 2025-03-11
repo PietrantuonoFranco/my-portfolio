@@ -1,0 +1,12 @@
+---
+technologiesNames:
+    - Docker
+    - Bash
+    - NextJS
+    - Astro
+    - NodeJS
+    - Sequelize
+    - Python
+    - Flask
+    - Cloudinary
+---

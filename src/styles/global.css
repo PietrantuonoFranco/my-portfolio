@@ -7,7 +7,7 @@ body {
     font-family: Figtree, sans-serif, Arial, Helvetica;
 }
 
-.bg-light-color {
+.bg-light-gradient {
     background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
 }
 
@@ -34,6 +34,7 @@ body {
     border: 2px solid linear-gradient(to right top, #63aa35, #72ba32, #83cb2c, #95db23, #a8eb12);
 }
 
+
 @theme {
     --color-my-red: #DF2935;
     --color-my-black: #02020A;
@@ -41,4 +42,11 @@ body {
     --color-my-white: #FEFCFB;
     --color-my-gray: #E5E7EB55;
     --color-my-dark-gray: #303030;
+    --color-my-light-blue: #0CC0DF;
+
+    --shadow-light: 0 0 50px #E5E7EB55;
+    --shadow-light-sm: 0 0 10px #E5E7EB55;
+    --shadow-yellow: 0 3px 0 #E9DF00;
+    --shadow-red: 0 3px 0 #DF2935;
+    
 }

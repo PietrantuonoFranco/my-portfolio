@@ -1,12 +1,18 @@
 ---
 title: Nutrigym
+members:
+    - Franco Pietrantuono
+    - Valdes Nicolás
+    - Ferraris Davies Gastón
+    - Vijandi Iván
+    - Moscuzza Vicente
 description:
     es: Software web que permite a sus usuarios generar planes de entrenamiento y menús semanales a partir de los parámetros que el mismo seleccione.
     en: Web software that allows its users to generate training plans and weekly menus based on the parameters they select.
 technologiesNames:
     - JavaScript
-    - NextJS
     - React
+    - NextJS
     - TailwindCSS
     - Docker
     - PostgreSQL
