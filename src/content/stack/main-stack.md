@@ -1,10 +1,13 @@
 ---
 technologiesNames:
     - TypeScript
-    - TailwindCSS
-    - PostgreSQL
     - JavaScript
     - HTML
     - CSS
+    - TailwindCSS
+    - PostgreSQL
     - React
+    - Sequelize
+    - NodeJS
+    - Git
 ---

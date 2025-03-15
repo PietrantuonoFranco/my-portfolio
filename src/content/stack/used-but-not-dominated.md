@@ -4,8 +4,6 @@ technologiesNames:
     - Bash
     - NextJS
     - Astro
-    - NodeJS
-    - Sequelize
     - Python
     - Flask
     - Cloudinary

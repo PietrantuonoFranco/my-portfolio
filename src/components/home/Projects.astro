@@ -16,7 +16,7 @@ technologies.forEach((tech) => {
 
 ---
 
-<section id="projects" class="md:bg-dark-gradient mb-16 px-5 md:px-0 space-y-6 scroll-mt-[80px]">
+<section id="projects" class="md:bg-dark-gradient mb-16 px-5 md:px-0 space-y-6 scroll-mt-[80px] fade-in">
   <h2 class="text-center text-5xl text-my-white font-semibold">{ language === "en" ? "Projects" : "Proyectos" }</h2>
 
   <div class="w-full h-[1px] bg-[#E5E7EB55]"></div>
@@ -56,7 +56,7 @@ technologies.forEach((tech) => {
             <div class="pt-3 space-y-4">
               <h4 class="text-center text-[18px] font-semibold text-[#6565655] text-my-light-blue">{ language === "en" ? "Technologies" : "Tecnologías" }</h4>
 
-              <div class="px-0 md:px-10 flex flex-wrap justify-center items-center gap-x-3">
+              <div class="px-0 md:px-10 flex flex-wrap justify-center items-center gap-4">
                 {technologiesNames.map((technologyName) => {
                   const svg = technologyMap.get(technologyName);
 
