@@ -9,5 +9,6 @@ technologiesNames:
     - React
     - Sequelize
     - NodeJS
+    - Express
     - Git
 ---
