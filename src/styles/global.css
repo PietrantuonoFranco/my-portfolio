@@ -3,6 +3,10 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Figtree, sans-serif, Arial, Helvetica;
 }

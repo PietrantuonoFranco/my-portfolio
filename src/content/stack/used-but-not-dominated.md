@@ -7,4 +7,5 @@ technologiesNames:
     - Python
     - Flask
     - Cloudinary
+    - Photoshop
 ---
