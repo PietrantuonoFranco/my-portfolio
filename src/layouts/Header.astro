@@ -86,29 +86,29 @@ if (!languageSegment || !supportedLanguages.includes(languageSegment)) {
           </button>
       </div>
 
-      <div id="settings" class="absolute left-1/2 -translate-x-1/2 top-15 w-full px-7 bg-[#292929] border-[1px] border-[#E5E7EB55] rounded-4xl shadow-md flex flex-col">
+      <div id="settings" class="absolute left-1/2 -translate-x-1/2 top-15 w-full bg-[#292929] border-[1px] border-[#E5E7EB55] rounded-4xl shadow-md flex flex-col">
         <div>
           <nav>
             <ul class="flex flex-col itmes-center">
-              <li class="hover:bg-my-gray hover:shadow-sm">
-                <a href="#" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "About me" : "Sobre mí" }</a>
+              <li class="hover:bg-my-gray hover:shadow-sm hover:rounded-t-4xl">
+                <a href="#" id="about-link" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "About me" : "Sobre mí" }</a>
               </li>
               <li class="hover:bg-my-gray hover:shadow-sm">
-                <a href="#projects" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "Projects" : "Proyectos" }</a>
+                <a href="#projects" id="projects-link" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "Projects" : "Proyectos" }</a>
               </li>
               <li class="hover:bg-my-gray hover:shadow-sm">
-                <a href="#skills" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "Skills" : "Habilidades" }</a>
+                <a href="#skills" id="skills-link" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "Skills" : "Habilidades" }</a>
               </li>
             </ul>
           </nav>
         </div>
 
-          <div class="w-full h-[1px] bg-[#E5E7EB55]"></div>
+          <div class="m-auto w-[85%] h-[1px] bg-[#E5E7EB55]"></div>
 
           <LanguageButtons isSmallScreen={true}/>
           {/*
           <LightDarkModeButttons />
-        */}
+          */}
         </div>
       </div>
     </div>
@@ -151,4 +151,32 @@ if (!languageSegment || !supportedLanguages.includes(languageSegment)) {
       toggleSettingsButton?.classList.remove('[box-shadow:inset_0_0_0_1px_#000]');
     }
   });
+</script>
+
+<script>
+  const aboutLink = document.getElementById('about-link') as HTMLAnchorElement | null;
+  const projectsLink = document.getElementById('projects-link') as HTMLAnchorElement | null;
+  const skillsLink = document.getElementById('skills-link') as HTMLAnchorElement | null;
+  
+
+  if (aboutLink && projectsLink && skillsLink) {
+    setEventListenerToHideMenu(aboutLink);
+    setEventListenerToHideMenu(projectsLink);
+    setEventListenerToHideMenu(skillsLink);
+}
+
+  function setEventListenerToHideMenu (element: HTMLAnchorElement | null) {
+    const settings = document.getElementById('settings') as HTMLElement | null;
+
+    element?.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      settings?.classList.toggle('visible');
+      settings?.classList.toggle('invisible');
+
+      setTimeout(() => {
+        window.location.href = element.href;
+      }, 200);
+    });
+  }
 </script>
