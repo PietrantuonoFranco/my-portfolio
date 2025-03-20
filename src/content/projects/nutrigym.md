@@ -18,7 +18,7 @@ technologiesNames:
     - PostgreSQL
     - Sequelize
 webSiteUrl: https://nutrigym-henna.vercel.app/
-repositoryUrl: 
+repositoryUrl: https://github.com/PietrantuonoFranco/nutrigym
 img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1741417625/nutrigym_o0p3es.webp
 ---
 

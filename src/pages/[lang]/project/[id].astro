@@ -26,16 +26,25 @@ export const prerender = true;
 ---
 
 <Layout title={`Project - ${title}`}>
+
+
+  <!-- Contenido principal -->
   <div class="w-full flex">
-    <aside>
-      <img
-        transition:name={`logo-${slug}`}
-        src={img}
-        alt=`Logo de ${slug}`
-        class="max-h-25 drop-shadow-md">
-    </aside>
-    <div class="p-10 flex flex-col justify-center items-center text-center space-y-10">
-      <h1 class="text-4xl font-bold mb-4">{ title }</h1>
+    <div class="w-full p-10 flex flex-col justify-center items-center text-center space-y-6">
+      <h1 class="text-my-white text-5xl font-bold">{ title }</h1>
+
+      <div class="w-full h-[1px] bg-my-gray"></div>
+      
+      <!-- Banner de la imagen -->
+      <div class="w-full">
+        <img
+          transition:name={`logo-${slug}`}
+          src={img}
+          alt={`Logo de ${slug}`}
+          class="mt-0 w-full h-full object-cover drop-shadow-md"
+        />
+      </div>
+
       <div class="prose">
         <Content />
       </div>
