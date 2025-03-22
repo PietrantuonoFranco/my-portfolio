@@ -17,6 +17,7 @@ technologiesNames:
     - Docker
     - PostgreSQL
     - Sequelize
+    - Supabase
 webSiteUrl: https://nutrigym-s31.vercel.app/
 repositoryUrl: https://github.com/PietrantuonoFranco/nutrigym
 img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1741417625/nutrigym_o0p3es.webp

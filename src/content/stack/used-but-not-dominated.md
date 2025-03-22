@@ -2,10 +2,10 @@
 technologiesNames:
     - Docker
     - Bash
-    - NextJS
     - Astro
     - Python
     - Flask
     - Cloudinary
+    - Supabase
     - Photoshop
 ---

@@ -7,6 +7,7 @@ technologiesNames:
     - TailwindCSS
     - PostgreSQL
     - React
+    - NextJS
     - Sequelize
     - NodeJS
     - Express
