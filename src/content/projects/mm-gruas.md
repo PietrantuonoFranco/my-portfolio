@@ -10,7 +10,7 @@ technologiesNames:
     - React
     - TailwindCSS
     - Cloudinary
-webSiteUrl: https://mm-gruas.vercel.app/
+webSiteUrl: https://mmgruas.com.ar/
 repositoryUrl: https://github.com/PietrantuonoFranco/mm-gruas
 img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1741417625/mm-gruas_phvh0w.webp
 ---
