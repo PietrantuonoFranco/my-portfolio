@@ -46,6 +46,15 @@ const softSkills = defineCollection({
   }),
 });
 
+const hardSkills = defineCollection({
+  schema: z.object({
+      name: z.object({
+        en: z.string(),
+        es: z.string()
+      }),
+  }),
+});
+
 const stack = defineCollection({
   schema: z.object({
     technologiesNames: z.array(z.string()),
@@ -59,4 +68,4 @@ const technologies = defineCollection({
   }),
 });
 
-export const collections = { aboutMe, projects, softSkills, stack, technologies };
+export const collections = { aboutMe, projects, softSkills, hardSkills, stack, technologies };
