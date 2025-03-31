@@ -38,6 +38,11 @@ body {
     border: 2px solid linear-gradient(to right top, #63aa35, #72ba32, #83cb2c, #95db23, #a8eb12);
 }
 
+.custom-transition {
+    transition-property: transform, box-shadow;
+    transition-duration: 300ms;
+    transition-timing-function: ease-in-out;
+}
 
 @theme {
     --color-my-red: #DF2935;
