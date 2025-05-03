@@ -3,7 +3,9 @@ technologiesNames:
     - Docker
     - Bash
     - Astro
+    - TypeORM
     - Python
+    - Django
     - Flask
     - Cloudinary
     - Supabase
