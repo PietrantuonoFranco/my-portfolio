@@ -11,6 +11,6 @@ technologiesNames:
     - TailwindCSS
     - Cloudinary
 webSiteUrl: https://mmgruas.com.ar/
-repositoryUrl: https://github.com/PietrantuonoFranco/mm-gruas
+repositoryUrl: 
 img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1741417625/mm-gruas_phvh0w.webp
 ---
