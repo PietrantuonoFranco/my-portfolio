@@ -1,12 +1,14 @@
 ---
 technologiesNames:
-    - Docker
     - Bash
     - Astro
     - TypeORM
     - Python
     - Django
     - Flask
+    - Jenkins
+    - Nginx
+    - Azure
     - Cloudinary
     - Supabase
     - Photoshop

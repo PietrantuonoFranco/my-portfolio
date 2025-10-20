@@ -11,5 +11,6 @@ technologiesNames:
     - Sequelize
     - NodeJS
     - Express
+    - Docker
     - Git
 ---
