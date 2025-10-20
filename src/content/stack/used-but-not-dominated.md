@@ -11,5 +11,6 @@ technologiesNames:
     - Azure
     - Cloudinary
     - Supabase
+    - GitHub Actions
     - Photoshop
 ---
