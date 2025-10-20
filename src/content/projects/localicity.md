@@ -10,12 +10,12 @@ technologiesNames:
     - React
     - Astro
     - TailwindCSS
-    - Docker
     - PostgreSQL
+    - Docker
     - TypeORM
+    - GitHub Actions
     - Nginx
     - Azure
-    - GitHub Actions
 webSiteUrl:
 repositoryUrl: https://github.com/PietrantuonoFranco/LocaliCity
 img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1760998074/localicity_pulimz.webp
