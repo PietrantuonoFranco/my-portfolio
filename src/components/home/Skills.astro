@@ -37,7 +37,7 @@ technologies.forEach((tech) => {
             {language === "en" ? "Main Stack" : "Stack Principal"}
           </h4>
 
-          <div class="px-6 flex flex-wrap justify-center items-center gap-4">
+          <div class="px-6 flex flex-wrap justify-center items-start gap-4">
             {stack
               .filter((item) => item.slug === "main-stack")
               .flatMap(({ data }) =>
@@ -52,7 +52,7 @@ technologies.forEach((tech) => {
             {language === "en" ? "Others" : "Otras"}
           </h4>
 
-          <div class="px-6 flex flex-wrap justify-center items-center gap-4">
+          <div class="px-6 flex flex-wrap justify-center items-start gap-4">
             {stack
               .filter((item) => item.slug === "used-but-not-dominated")
               .flatMap(({ data }) =>

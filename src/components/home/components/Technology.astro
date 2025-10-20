@@ -5,7 +5,7 @@ const { key, htmlString } = Astro.props;
 
 <div class="w-16 group flex flex-col items-center gap-y-3">
   <div class="hover:drop-shadow-md group-hover:scale-110 transition-all duration-300 ease-in-out" set:html={htmlString}></div>
-  <p class="text-my-white text-sm visible md:invisible md:opacity-0 group-hover:md:visible group-hover:md:opacity-100 transition-all duration-300 ease-in-out">
+  <p class="text-center text-my-white text-sm visible md:invisible md:opacity-0 group-hover:md:visible group-hover:md:opacity-100 transition-all duration-300 ease-in-out">
     {key}
   </p>
 </div>
