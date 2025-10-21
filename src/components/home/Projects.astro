@@ -1,6 +1,5 @@
 ---
 import { getCollection } from "astro:content";
-import Technology from "./components/Technology.astro";
 import calculateWidthFit from "../../lib/utils/calculateWidthFit";
 
 const { language } = Astro.props;
@@ -26,8 +25,6 @@ technologies.forEach((tech) => {
     {projects.map((project) => {
       const { data } = project;
       const { title, members, description, technologiesNames, webSiteUrl, repositoryUrl, img } = data;
-
-      const id = project.slug;
 
       return (
         <article
