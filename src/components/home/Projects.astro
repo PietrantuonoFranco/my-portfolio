@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Technology from "./components/Technology.astro";
+import calculateWidthFit from "../../lib/utils/calculateWidthFit";
 
 const { language } = Astro.props;
 
@@ -26,64 +27,75 @@ technologies.forEach((tech) => {
       const { data } = project;
       const { title, members, description, technologiesNames, webSiteUrl, repositoryUrl, img } = data;
 
+      const id = project.slug;
+
       return (
         <article
-          class="h-fit bg-[#303030] border-[1px] border-[#E5E7EB55] rounded-3xl flex flex-col justify-start items-center hover:shadow-light-sm hover:scale-101 transition-all duration-300 ease-in-out"
+          class={`group bg-[#30303060] border-[1px] border-[#E5E7EB55] rounded-3xl flex flex-col justify-start items-center hover:shadow-light-xs transition-all duration-300 ease-in-out`}
         >
-          <img
-            src={img}
-            alt="Logo"
-            class="rounded-t-3xl"
-          />
+          <div class="w-full overflow-hidden rounded-t-3xl">
+            <img
+              src={img}
+              alt="Logo"
+              class={`rounded-t-3xl group-hover:scale-105 transition-all duration-500 ease-in-out object-cover w-full h-full`}
+            />
+          </div>
 
-          <div class="px-6 py-3 space-y-4">
+
+          <div class="px-9 py-3 space-y-4">
             <div class="space-y-2">
-              <div class="mt-4 flex justify-between items-center">
-                <h3 class="text-my-yellow text-left text-3xl font-bold">{title}<span class="mt-4 text-my-red text-left text-3xl font-bold">.</span></h3>
+              <div class="flex justify-between items-center">
+                <h3 class="text-my-yellow text-left text-2xl font-bold">{title}<span class="mt-4 text-my-red text-left text-3xl font-bold">.</span></h3>
 
                 {members.length === 1 && (
                   <div class="relative inline-block group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:drop-shadow-md" width="30" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#FEFCFB" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 1 1-7.5 0a3.75 3.75 0 0 1 7.5 0M4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.9 17.9 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:drop-shadow-md" width="26" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#FEFCFB" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 1 1-7.5 0a3.75 3.75 0 0 1 7.5 0M4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.9 17.9 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632"/></svg>
 
-                    <div class="absolute hidden group-hover:block group-hover:shadow-md right-10 top-1/2 transform -translate-y-1/2 bg-my-gray text-my-white px-3 py-1 rounded-3xl text-sm">
+                    <div class="absolute hidden group-hover:block group-hover:shadow-md right-8 top-1/2 transform -translate-y-1/2 bg-my-gray text-my-white px-2.5 py-1 rounded-xl text-xs">
                       Individual
                     </div>
                   </div>
                 )}
 
                 {members.length > 1 && (
-                  
-
-
                   <div class="relative inline-block group">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:drop-shadow-md" width="26" height="26" viewBox="0 0 24 24"><path fill="none" stroke="#FEFCFB" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.1 9.1 0 0 0 3.741-.479q.01-.12.01-.241a3 3 0 0 0-4.692-2.478m.94 3.197l.001.031q0 .337-.037.666A11.94 11.94 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6 6 0 0 1 6 18.719m12 0a5.97 5.97 0 0 0-.941-3.197m0 0A6 6 0 0 0 12 12.75a6 6 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72a9 9 0 0 0 3.74.477m.94-3.197a5.97 5.97 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0a3 3 0 0 1 6 0m6 3a2.25 2.25 0 1 1-4.5 0a2.25 2.25 0 0 1 4.5 0m-13.5 0a2.25 2.25 0 1 1-4.5 0a2.25 2.25 0 0 1 4.5 0"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="group-hover:drop-shadow-md" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="#FEFCFB" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 18.72a9.1 9.1 0 0 0 3.741-.479q.01-.12.01-.241a3 3 0 0 0-4.692-2.478m.94 3.197l.001.031q0 .337-.037.666A11.94 11.94 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6 6 0 0 1 6 18.719m12 0a5.97 5.97 0 0 0-.941-3.197m0 0A6 6 0 0 0 12 12.75a6 6 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72a9 9 0 0 0 3.74.477m.94-3.197a5.97 5.97 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0a3 3 0 0 1 6 0m6 3a2.25 2.25 0 1 1-4.5 0a2.25 2.25 0 0 1 4.5 0m-13.5 0a2.25 2.25 0 1 1-4.5 0a2.25 2.25 0 0 1 4.5 0"/></svg>
 
-                    <div class="absolute opacity-0 block group-hover:shadow-md right-10 top-1/2 transform -translate-y-1/2 bg-my-gray text-my-white px-3 py-1 rounded-3xl text-sm group-hover:opacity-100 transition-opacity duration-250 ease-in-out">
+                    <div class="absolute opacity-0 block group-hover:shadow-md right-8 top-1/2 transform -translate-y-1/2 bg-my-gray text-my-white px-2.5 py-1 rounded-xl text-xs group-hover:opacity-100 transition-opacity duration-250 ease-in-out">
                       { language === "en" ? "Teamwork" : "Grupal" }
                     </div>
                   </div>
                 )}
               </div>
 
-              <p class="px-3 text-sm text-gray-300">{ language === "en" ? description.en : description.es }</p>
+              <p class="text-sm text-gray-300">{ language === "en" ? description.en : description.es }</p>
             </div>
 
-            <div class="pt-3 space-y-4">
-              <h4 class="text-center text-[18px] font-semibold text-[#6565655] text-my-light-blue">{ language === "en" ? "Technologies" : "Tecnologías" }</h4>
+            <div class="py-2 flex flex-wrap items-center gap-y-2 gap-x-4 lg:gap-x-4">
+              {technologiesNames.map((technologyName) => {
+                const svg = technologyMap.get(technologyName);
 
-              <div class="px-0 flex flex-wrap justify-center items-start gap-4">
-                {technologiesNames.map((technologyName) => {
-                  const svg = technologyMap.get(technologyName);
+                if (svg) {
+                  const widthMatch = svg.match(/width=["']?(\d+)["']?/);
+                  const widthValue = widthMatch ? widthMatch[1] : null;
 
-                  if (svg) {
-                    return (
-                      <Technology key={technologyName} htmlString={svg} />
-                    );
-                  }
-                  
-                  return null;
-                })}
-              </div>
+                  const heightMatch = svg.match(/height=["']?(\d+)["']?/);
+                  const heightValue = heightMatch ? heightMatch[1] : null;
+
+                  const updatedSVG = svg.replace(/width=["']?(\d+)["']?/, `width="${calculateWidthFit(Number(widthValue), Number(heightValue), Number(12))}px"`).replace(/height=["']?(\d+)["']?/, `height="${12}px"`);
+
+                  return (
+                    <div class="flex items-center justify-center space-x-2 px-2.5 py-1 rounded-lg bg-white/7 shadow-sm">
+                      <div class="hover:drop-shadow-md group-hover:scale-110 transition-all duration-300 ease-in-out" set:html={updatedSVG}></div>
+                      <p class="text-xs text-white/85">
+                        {technologyName}
+                      </p>
+                    </div>
+                )
+                }
+
+                return null;
+              })}
             </div>
 
             <div class="w-full h-[1px] bg-[#E5E7EB55]"></div>
