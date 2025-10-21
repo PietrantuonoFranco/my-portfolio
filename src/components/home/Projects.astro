@@ -16,10 +16,13 @@ technologies.forEach((tech) => {
 
 ---
 
-<section id="projects" class="md:bg-dark-gradient mb-16 px-5 md:px-0 space-y-6 scroll-mt-[80px] fade-in">
-  <h2 class="text-center text-5xl text-my-white font-semibold">{ language === "en" ? "Projects" : "Proyectos" }</h2>
+<section id="projects" class="md:bg-dark-gradient mb-16 px-5 md:px-0 space-y-10 scroll-mt-[80px] fade-in">
+  <h2 class="relative text-center text-4xl text-my-white font-semibold">
+    { language === "en" ? "Projects" : "Proyectos" }
 
-  <div class="w-full h-[1px] bg-[#E5E7EB55]"></div>
+    <span class="w-30 bg-my-red rounded-full shadow-lg absolute left-1/2 transform translate-y-3 -translate-x-1/2 bottom-0 h-1 bg-gray-700"></span>
+  </h2>
+
 
   <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 space-y-4">
     {[...projects].reverse().map((project) => {
