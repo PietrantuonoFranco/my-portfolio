@@ -9,6 +9,7 @@ technologiesNames:
     - Jenkins
     - Nginx
     - Azure
+    - Vercel
     - Cloudinary
     - Supabase
     - GitHub Actions
