@@ -3,8 +3,8 @@ title: LocaliCity
 members:
     - Franco Pietrantuono
 description:
-    es: Esta aplicación web, respaldada por una API, centraliza y proporciona gratuitamente datos de países, provincias y ciudades. Su objetivo es solucionar la necesidad de esta información para formularios, ofreciendo además un sistema colaborativo donde los usuarios pueden solicitar nuevas localidades.
-    en: This web application, supported by an API, centralizes and freely provides data on countries, states, and cities. It solves the common need for this hierarchical information in forms, while also featuring a collaborative system where users can request new locations.
+    es: Plataforma colaborativa que ofrece datos de ubicaciones (países, provincias, ciudades) de forma gratuita.
+    en: Collaborative web app and API that provides free, hierarchical location data (countries, states, cities).
 technologiesNames:
     - TypeScript
     - React
@@ -13,9 +13,9 @@ technologiesNames:
     - PostgreSQL
     - Docker
     - TypeORM
-    - GitHub Actions
     - Nginx
     - Azure
+    - GitHub Actions
 webSiteUrl:
 repositoryUrl: https://github.com/PietrantuonoFranco/LocaliCity
 img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1760998074/localicity_pulimz.webp
