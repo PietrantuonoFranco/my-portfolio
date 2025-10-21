@@ -55,6 +55,7 @@ body {
 
     --shadow-light: 0 0 50px #E5E7EB55;
     --shadow-light-sm: 0 0 10px #E5E7EB55;
+    --shadow-light-xs: 0 0 7px #E5E7EB55;
     --shadow-yellow: 0 3px 0 #E9DF00;
     --shadow-red: 0 3px 0 #DF2935;
     
