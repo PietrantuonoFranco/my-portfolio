@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import { getCollection, render } from "astro:content"
 
+
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
   const supportedLanguages = ['en', 'es']; // Idiomas soportados
@@ -9,14 +10,14 @@ export async function getStaticPaths() {
   const paths = supportedLanguages.flatMap((lang) => {
     return projects.map((project) => ({
       params: { lang, id: project.slug },
-      props: { project },
+      props: { project, language: lang },
     }));
   });
 
   return paths;
 }
 
-const { project } = Astro.props;
+const { project, language } = Astro.props;
 const { data, slug } = project;
 const { title, img } = data;
 
@@ -31,12 +32,22 @@ export const prerender = true;
   <!-- Contenido principal -->
   <div class="w-full flex">
     <div class="w-full p-10 flex flex-col justify-center items-center text-center space-y-6">
-      <h1 class="text-my-white text-5xl font-bold">{ title }</h1>
+      <h1 class="relative text-center text-4xl text-my-white font-bold">
+        { title }
+    
+        <span class="w-30 bg-my-red rounded-full shadow-lg absolute left-1/2 transform translate-y-3 -translate-x-1/2 bottom-0 h-1 bg-gray-700"></span>
+      </h1>
 
-      <div class="w-full h-[1px] bg-my-gray"></div>
-      
+      <div class="w-full mt-4">
+        <h3 class="relative text-center text-2xl text-my-yellow font-semibold">
+          {language === "en" ? "Technologies" : "Tecnologías"}<span class="text-my-red">.</span>
+  
+          <span class="w-24 bg-my-white rounded-full shadow-lg absolute left-1/2 transform translate-y-1 -translate-x-1/2 bottom-0 h-0.5"></span>
+        </h3>
+      </div>
+
       <!-- Banner de la imagen -->
-      <div class="w-full">
+      <div class="w-full mt-4">
         <img
           transition:name={`logo-${slug}`}
           src={img}
@@ -45,7 +56,7 @@ export const prerender = true;
         />
       </div>
 
-      <div class="prose">
+      <div class="text-left prose prose-invert prose-lg max-w-none prose-headings:text-my-yellow prose-headings:text-center prose-p:text-gray-200 prose-a:text-my-light-blue prose-strong:text-my-white prose-code:text-my-red prose-pre:bg-gray-800 prose-pre:text-center prose-ul:text-gray-200 prose-ol:text-gray-200">
         <Content />
       </div>
     </div>
