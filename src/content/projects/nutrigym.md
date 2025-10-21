@@ -7,8 +7,8 @@ members:
     - Vijandi Iván
     - Moscuzza Vicente
 description:
-    es: Software web que permite a sus usuarios generar planes de entrenamiento y menús semanales a partir de los parámetros que el mismo seleccione.
-    en: Web software that allows its users to generate training plans and weekly menus based on the parameters they select.
+    es: Software web que genera planes de entrenamiento y menús semanales a partir de parámetros seleccionados.
+    en: Web software that generate training plans and weekly menus based on selected parameters.
 technologiesNames:
     - JavaScript
     - React
