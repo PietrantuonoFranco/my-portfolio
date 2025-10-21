@@ -43,7 +43,7 @@ technologies.forEach((tech) => {
               .flatMap(({ data }) =>
                 data.technologiesNames.map((technologyName) => {
                   const svg = technologyMap.get(technologyName);
-                  return svg ? <Technology key={technologyName} htmlString={svg} /> : null;
+                  return svg ? <Technology key={technologyName} htmlString={svg}/> : null;
                 })
               )}
           </div>
