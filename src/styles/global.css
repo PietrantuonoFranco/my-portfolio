@@ -58,6 +58,7 @@ body {
     --shadow-light: 0 0 50px #E5E7EB55;
     --shadow-light-sm: 0 0 10px #E5E7EB55;
     --shadow-gray-xs: 0 0px 10px #E5E7EB25;
+    --shadow-blue-xs: 0 0px 10px #B5B7FB25;
     --shadow-white: 0 3px 0 #FEFCFB85;
     --shadow-black: 0 3px 0 #02020A85;
     --shadow-blue: 0 3px 0 #0550DF85;
