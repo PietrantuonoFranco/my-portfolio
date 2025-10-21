@@ -50,14 +50,19 @@ body {
     --color-my-yellow: #E9DF00;
     --color-my-white: #FEFCFB;
     --color-my-gray: #5B5B5F;
+    --color-my-blue: #0550DF;
+    --color-my-dark-blue: #0550DF;
     --color-my-dark-gray: #303030;
     --color-my-light-blue: #0CC0DF;
 
     --shadow-light: 0 0 50px #E5E7EB55;
     --shadow-light-sm: 0 0 10px #E5E7EB55;
-    --shadow-light-xs: 0 0 7px #E5E7EB55;
-    --shadow-yellow: 0 3px 0 #E9DF00;
-    --shadow-red: 0 3px 0 #DF2935;
+    --shadow-gray-xs: 0 0px 10px #E5E7EB25;
+    --shadow-white: 0 3px 0 #FEFCFB85;
+    --shadow-black: 0 3px 0 #02020A85;
+    --shadow-blue: 0 3px 0 #0550DF85;
+    --shadow-yellow: 0 2px 0 #E9DF00;
+    --shadow-red: 0 2px 0 #DF2935;
     
 }
 
