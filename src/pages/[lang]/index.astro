@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Projects from '../../components/home/Projects.astro';
 import AboutMe from '../../components/home/AboutMe.astro';
 import Skills from '../../components/home/Skills.astro';
+import Education from '../../components/home/Education.astro';
 
 const supportedLanguages: string[] = ['es', 'en'];
 const defaultLanguage: string = 'en';
@@ -39,7 +40,9 @@ if (!languageSegment || !supportedLanguages.includes(languageSegment)) {
     <AboutMe language={language}/>
 
     <Projects language={language}/>
-            
+
     <Skills language={language}/>
+
+    <Education language={language}/>
   </main>
 </Layout>

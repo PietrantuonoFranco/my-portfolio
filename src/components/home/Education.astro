@@ -1,0 +1,99 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+
+type Language = "en" | "es";
+
+type RawEducationEntry = CollectionEntry<"educationEvents">;
+
+type EventItem = {
+  id: string;
+  date?: string;
+  title?: string;
+  description?: string;
+  location?: string;
+  _ts: number;
+};
+
+const { language } = Astro.props as { language: Language };
+
+const educationEvents = (await getCollection("educationEvents")) as RawEducationEntry[];
+
+// Mapa de meses en EN y ES para parsear "March 2025" / "Marzo 2025"
+const monthMap: Record<Language, Record<string, number>> = {
+  en: {
+    january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
+    july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
+  },
+  es: {
+    enero: 0, febrero: 1, marzo: 2, abril: 3, mayo: 4, junio: 5,
+    julio: 6, agosto: 7, septiembre: 8, octubre: 9, noviembre: 10, diciembre: 11,
+  }
+};
+
+function parseMonthYear(dateStr?: string): number {
+  if (!dateStr) return 0;
+  const parts = dateStr.trim().split(/\s+/);
+  const year = parts.pop();
+  const monthName = parts.join(' ').toLowerCase();
+  // buscar en ambos mapas (por si llegan mezclados)
+  const en = monthMap.en[monthName];
+  const es = monthMap.es[monthName];
+  const monthIndex = en ?? es;
+  
+  if (monthIndex != null && typeof year === "string" && /^\d{4}$/.test(year)) {
+    return new Date(Number(year), monthIndex, 1).getTime();
+  }
+  // fallback a Date.parse si el formato varía
+  const parsed = Date.parse(dateStr);
+  return isNaN(parsed) ? 0 : parsed;
+}
+
+// Normalizar eventos según el idioma seleccionado y parsear fecha
+const events: EventItem[] = educationEvents.map((entry) => {
+  const data = (language === "en" ? entry.data.en : entry.data.es) as {
+    date?: string;
+    title?: string;
+    description?: string;
+    location?: string;
+  };
+
+  return {
+    id: entry.id,
+    date: data.date,
+    title: data.title,
+    description: data.description,
+    location: data.location,
+    _ts: parseMonthYear(data.date), // timestamp auxiliar para ordenar
+  };
+});
+
+// Ordenar por fecha (descendente: más reciente primero)
+events.sort((a, b) => b._ts - a._ts);
+---
+
+<section id="education" class="mb-16 px-5 md:px-0 space-y-10 scroll-mt-[80px] fade-in">
+  <h2 class="relative text-center text-4xl text-my-white font-semibold">
+    {language === "en" ? "Education" : "Educación"}
+
+    <span class="w-30 bg-my-red rounded-full shadow-lg absolute left-1/2 transform -translate-x-1/2 translate-y-3 bottom-0 h-1"></span>
+  </h2>
+
+  <div class="relative flex justify-between py-8">
+    <!-- Línea horizontal centrada con los círculos -->
+    <div class="absolute inset-x-0 top-10 h-[2px] bg-white"></div>   
+    
+    { [...events].reverse().map((event) => (
+      <div class="group relative z-10 w-1/5 flex flex-col items-center">
+        <!-- Círculo -->
+        <div class="w-4 h-4 bg-blue-600 rounded-full cursor-pointer transition-all group-hover:scale-150 group-hover:shadow-lg group-hover:shadow-blue-600/30"/>
+        
+        <!-- Tooltip -->
+        <div class="opacity-0 mt-4 p-3 min-w-[200px] border border-gray-700 rounded-lg bg-gray-800 text-center group-hover:opacity-100 transition-opacity duration-300">
+          <div class="text-xs text-gray-400 mb-1 font-medium">{event.date}</div>
+          <div class="font-semibold text-white mb-1">{event.title}</div>
+          <div class="text-sm text-gray-500">{event.description}</div>
+        </div>
+      </div>
+    ))}
+  </div>
+</section>
