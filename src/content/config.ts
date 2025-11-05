@@ -68,4 +68,22 @@ const technologies = defineCollection({
   }),
 });
 
-export const collections = { aboutMe, projects, softSkills, hardSkills, stack, technologies };
+const educationEvents = defineCollection({
+  schema: z.object({
+    en: z.object({
+      date: z.string(),
+      title: z.string(),
+      description: z.string(),
+      location: z.string(),
+    }),
+      
+    es: z.object({
+      date: z.string(),
+      title: z.string(),
+      description: z.string(),
+      location: z.string(),
+    }),
+  })
+});
+
+export const collections = { aboutMe, projects, softSkills, hardSkills, stack, technologies, educationEvents };
