@@ -102,6 +102,10 @@ if (!languageSegment || !supportedLanguages.includes(languageSegment)) {
               <li class="hover:bg-my-gray hover:shadow-sm">
                 <a href="#skills" id="skills-link" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "Skills" : "Habilidades" }</a>
               </li>
+
+              <li class="hover:bg-my-gray hover:shadow-sm">
+                <a href="#education" id="#education-link" class="text-center px-4 py-3 block w-full h-full">{ language === "en" ? "Education" : "Educación" }</a>
+              </li>
             </ul>
           </nav>
         </div>
@@ -160,12 +164,13 @@ if (!languageSegment || !supportedLanguages.includes(languageSegment)) {
   const aboutLink = document.getElementById('about-link') as HTMLAnchorElement | null;
   const projectsLink = document.getElementById('projects-link') as HTMLAnchorElement | null;
   const skillsLink = document.getElementById('skills-link') as HTMLAnchorElement | null;
-  
+  const educationLink = document.getElementById('education-link') as HTMLAnchorElement | null;
 
   if (aboutLink && projectsLink && skillsLink) {
     setEventListenerToHideMenu(aboutLink);
     setEventListenerToHideMenu(projectsLink);
     setEventListenerToHideMenu(skillsLink);
+    setEventListenerToHideMenu(educationLink);
 }
 
   function setEventListenerToHideMenu (element: HTMLAnchorElement | null) {
