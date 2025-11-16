@@ -12,6 +12,7 @@ type EventItem = {
   description?: string;
   location?: string;
   _ts: number;
+  buttonName?: string;
 };
 
 const { language } = Astro.props as { language: Language };
@@ -48,6 +49,23 @@ function parseMonthYear(dateStr?: string): number {
   return isNaN(parsed) ? 0 : parsed;
 }
 
+function toTrainCase(input: string): string {
+  if (!input) return "";
+  // Normaliza acentos, elimina diacríticos, quita caracteres no alfanuméricos (salvo espacios)
+  const cleaned = input
+    .trim()
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/[^\p{L}\p{N}\s]+/gu, ""); // letras, números y espacios
+
+  // Capitaliza cada palabra y las une con guiones (Train-Case)
+  return cleaned
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+    .join("-");
+}
+
 // Normalizar eventos según el idioma seleccionado y parsear fecha
 const events: EventItem[] = educationEvents.map((entry) => {
   const data = (language === "en" ? entry.data.en : entry.data.es) as {
@@ -57,28 +75,32 @@ const events: EventItem[] = educationEvents.map((entry) => {
     location?: string;
   };
 
+  const title = data.title ?? "event";
+
   return {
     id: entry.id,
     date: data.date,
     title: data.title,
     description: data.description,
     location: data.location,
-    _ts: parseMonthYear(data.date), // timestamp auxiliar para ordenar
-  };
+    _ts: parseMonthYear(data.date),
+    buttonName: toTrainCase(title), // <-- propiedad nueva usable en botones
+  } as EventItem & { buttonName: string };
 });
 
 // Ordenar por fecha (descendente: más reciente primero)
 events.sort((a, b) => b._ts - a._ts);
 ---
 
-<section id="education" class="mb-16 px-5 md:px-0 space-y-16 scroll-mt-[80px] fade-in">
+<section id="education" class="mb-16 px-5 md:px-0 space-y-4 md:space-y-16 scroll-mt-[80px] fade-in">
   <h2 class="relative text-center text-4xl text-my-white font-semibold">
     {language === "en" ? "Education" : "Educación"}
 
     <span class="w-30 bg-my-red rounded-full shadow-lg absolute left-1/2 transform -translate-x-1/2 translate-y-3 bottom-0 h-1"></span>
   </h2>
 
-  <div class="relative flex justify-between items-start py-8 gap-x-4">
+  {/* MEDIUM SCREENS */}
+  <div class="hidden md:flex relative justify-between items-start py-8 gap-x-4">
     <!-- Línea horizontal centrada con los círculos -->
     <div class="absolute inset-x-0 top-10 h-[3px] bg-my-gray z-0"></div>   
     
@@ -86,17 +108,17 @@ events.sort((a, b) => b._ts - a._ts);
       <div class="group relative z-10 w-1/4 flex flex-col items-center px-2">
         <!-- Fecha encima del círculo (aparece en hover) -->
         <div class="absolute left-1/2 -translate-x-1/2 -translate-y-[160%] top-0 z-40 pointer-events-none">
-          <div class="inline-block whitespace-nowrap w-auto min-w-[120px] max-w-[90vw] bg-[#2A2A2A60] border-[1px] border-[#E5E7EB30] rounded-md px-3 py-2 text-my-yellow text-center text-xs font-bold overflow-x-auto grop-hover:scale-110 transition-all duration-300">
+          <div class="inline-block whitespace-nowrap w-auto min-w-[120px] max-w-[90vw] bg-[#1E1D20] border-[1px] border-[#E5E7EB30] rounded-md px-3 py-2 text-my-yellow text-center text-xs font-bold overflow-x-auto grop-hover:scale-110 transition-all duration-300">
             {event.date}
           </div>
         </div>
 
         <!-- Círculo -->
-        <div class="w-4 h-4 bg-my-light-blue rounded-full cursor-pointer transition-all group-hover:scale-150 group-hover:shadow-lg group-hover:shadow-blue-600/30 z-20"/>
+        <div class="w-4 h-4 bg-my-light-blue rounded-full transition-all group-hover:scale-150 group-hover:shadow-lg group-hover:shadow-blue-600/30 z-20"/>
 
         <!-- Tooltip (sin la fecha) -->
         <div class="pointer-events-auto absolute top-full left-1/2 -translate-x-1/2 mt-3 z-30 opacity-0 group-hover:opacity-100 transition-opacity duration-250">
-          <div class="w-auto max-w-[200px] min-w-[200px] bg-[#2A2A2A60] border-[1px] border-[#E5E7EB30] rounded-2xl text-center px-3 py-2 shadow-lg group-hover:border-my-light-blue/15">
+          <div class="w-auto max-w-[200px] min-w-[200px] bg-[#1E1D20] border-[1px] border-[#E5E7EB30] rounded-2xl text-center px-3 py-2 shadow-lg group-hover:border-my-light-blue/15">
             <div class="font-semibold text-my-white mb-1">{event.title}</div>
             <div class="text-sm text-gray-400 break-words">{event.description}</div>
           </div>
@@ -104,4 +126,120 @@ events.sort((a, b) => b._ts - a._ts);
       </div>
     ))}
   </div>
+
+  {/* SMALL SCREENS: botones que abren panel en el flujo (empujan contenido) */}
+  <div class="md:hidden relative flex flex-col justify-start items-start py-4 gap-y-4">
+    <!-- Línea vertical (solo en móvil) -->
+    <div class="absolute top-0 left-1.5 min-h-full flex-1 w-[3px] bg-my-gray z-0"></div>
+
+    { [...events].reverse().map((event) => (
+      <div class="relative z-10 w-full flex flex-col items-start">
+        <div class="w-full flex items-center">
+          <!-- botón circular -->
+          <button
+            type="button"
+            data-edu-btn={event.buttonName}
+            aria-expanded="false"
+            aria-controls={`panel-${event.buttonName}`}
+            id={`btn-${event.buttonName}`}
+            class="w-4 h-4 bg-my-light-blue rounded-full mr-4 transition-transform duration-150"
+          />
+          <!-- título a la derecha del botón (opcional) -->
+          <div class="flex-1">
+            <div class="text-sm font-semibold text-my-white">{event.title}</div>
+          </div>
+        </div>
+
+        <!-- Panel en el flujo: oculto por max-height; al abrir se expande y empuja el contenido -->
+        <div
+          id={`panel-${event.buttonName}`}
+          data-edu-panel={event.buttonName}
+          class="edu-panel  mt-3"
+          aria-hidden="true"
+        >
+          <div class="bg-[#1E1D20] border border-[#E5E7EB30] rounded-2xl p-4 text-sm text-gray-300">
+            <div class="text-xs text-my-yellow mb-1 font-medium">{event.date}</div>
+            <div class="font-semibold text-my-white mb-1">{event.title}</div>
+            <div class="text-sm text-gray-400">{event.description}</div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <style>
+    /* panel que se expande con transición de max-height (para empujar contenido) */
+    .edu-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 300ms ease;
+      margin-left: 2rem;
+    }
+    .edu-panel.open {
+      /* suficiente para la mayoría de tooltips; aumenta si necesitas más */
+      max-height: 560px;
+    }
+  </style>
+
+  <!-- Script cliente: toggle panels en móvil, solo uno abierto a la vez -->
+  <script type="module">
+    document.addEventListener('DOMContentLoaded', () => {
+      const buttons = Array.from(document.querySelectorAll('[data-edu-btn]'));
+      let openPanel = null;
+
+      const open = (panel, btn) => {
+        if (!panel) return;
+        // cerrar panel abierto distinto
+        if (openPanel && openPanel !== panel) {
+          close(openPanel);
+        }
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden', 'false');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+        openPanel = panel;
+        // desplazar suavemente para que el panel sea visible (centra aproximado)
+        setTimeout(() => {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 50);
+      };
+
+      const close = (panel) => {
+        if (!panel) return;
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+        const key = panel.dataset.eduPanel;
+        if (key) {
+          const b = document.querySelector(`[data-edu-btn="${key}"]`);
+          if (b) b.setAttribute('aria-expanded', 'false');
+        }
+        if (openPanel === panel) openPanel = null;
+      };
+
+      buttons.forEach(btn => {
+        const key = btn.getAttribute('data-edu-btn');
+        const panel = document.querySelector(`[data-edu-panel="${key}"]`);
+        if (!panel) return;
+
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (panel.classList.contains('open')) close(panel);
+          else open(panel, btn);
+        });
+      });
+
+      // click fuera cierra panel abierto
+      document.addEventListener('click', (e) => {
+        if (!openPanel) return;
+        if (openPanel.contains(e.target)) return;
+        const btn = document.querySelector(`[data-edu-btn="${openPanel.dataset.eduPanel}"]`);
+        if (btn && btn.contains(e.target)) return;
+        close(openPanel);
+      });
+
+      // Esc cierra
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && openPanel) close(openPanel);
+      });
+    });
+  </script>
 </section>
