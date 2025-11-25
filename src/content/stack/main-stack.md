@@ -8,7 +8,7 @@ technologiesNames:
     - PostgreSQL
     - React
     - NextJS
-    - Sequelize
+    - TypeORM
     - NodeJS
     - Express
     - Docker

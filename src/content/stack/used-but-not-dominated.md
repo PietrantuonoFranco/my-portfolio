@@ -2,7 +2,7 @@
 technologiesNames:
     - Bash
     - Astro
-    - TypeORM
+    - Sequelize
     - Python
     - Django
     - Flask
