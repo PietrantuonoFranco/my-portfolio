@@ -181,16 +181,24 @@ events.sort((a, b) => b._ts - a._ts);
       max-height: 560px;
     }
 
-    /* Animación de pulso expansivo para el primer círculo que indica interactividad */
+    /* Configuración: tiempo activo de pulso + pausa de 3s */
+    :root {
+      --pulse-active: 1s;
+      --pulse-pause: 2s;
+      --pulse-cycle: calc(var(--pulse-active) + var(--pulse-pause));
+    }
+
     @keyframes pulse-ring {
+      /* 0% -> inicio del pulso, 25% -> fin del pulso activo (1s si el ciclo son 4s) */
       0% {
         transform: translate(-50%, -50%) scale(1);
         opacity: 0.8;
       }
-      50% {
-        transform: translate(-50%, -50%) scale(1.6);
-        opacity: 0.4;
+      25% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
       }
+      /* 25%..100% mantiene el estado final (pausa visible sin animación) */
       100% {
         transform: translate(-50%, -50%) scale(2);
         opacity: 0;
@@ -201,7 +209,7 @@ events.sort((a, b) => b._ts - a._ts);
       position: relative;
     }
 
-    /* Primer anillo de pulso */
+    /* Primer anillo de pulso: ciclo completo = pulso activo + 3s de pausa */
     .first-circle-pulse::before {
       content: '';
       position: absolute;
@@ -211,11 +219,11 @@ events.sort((a, b) => b._ts - a._ts);
       height: 100%;
       border-radius: 50%;
       border: 2px solid rgb(96, 165, 250); /* my-light-blue */
-      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      animation: pulse-ring var(--pulse-cycle) cubic-bezier(0.4, 0, 0.6, 1) infinite;
       pointer-events: none;
     }
 
-    /* Segundo anillo de pulso con delay */
+    /* Segundo anillo desplazado dentro del periodo activo (ej. 0.5s después del inicio) */
     .first-circle-pulse::after {
       content: '';
       position: absolute;
@@ -225,7 +233,9 @@ events.sort((a, b) => b._ts - a._ts);
       height: 100%;
       border-radius: 50%;
       border: 2px solid rgb(96, 165, 250);
-      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) 1s infinite;
+      /* offset dentro del ciclo: 0.5s de retraso respecto al primer anillo */
+      animation: pulse-ring var(--pulse-cycle) cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      animation-delay: 0.5s;
       pointer-events: none;
     }
   </style>
