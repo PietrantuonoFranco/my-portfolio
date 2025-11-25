@@ -1,26 +1,22 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
-type Language = "en" | "es";
+type Lang = 'en' | 'es';
 
-type RawEducationEntry = CollectionEntry<"educationEvents">;
-
-type EventItem = {
-  id: string;
-  date?: string;
+interface EducationData {
   title?: string;
+  date?: string;
   description?: string;
   location?: string;
-  _ts: number;
-  buttonName?: string;
-};
+}
 
-const { language } = Astro.props as { language: Language };
+const educationEvents = await getCollection("educationEvents");
 
-const educationEvents = (await getCollection("educationEvents")) as RawEducationEntry[];
+const language = (Astro.props?.language ?? "en") as Lang;
 
 // Mapa de meses en EN y ES para parsear "March 2025" / "Marzo 2025"
-const monthMap: Record<Language, Record<string, number>> = {
+const monthMap = {
   en: {
     january: 0, february: 1, march: 2, april: 3, may: 4, june: 5,
     july: 6, august: 7, september: 8, october: 9, november: 10, december: 11,
@@ -31,14 +27,15 @@ const monthMap: Record<Language, Record<string, number>> = {
   }
 };
 
-function parseMonthYear(dateStr?: string): number {
+function parseMonthYear(dateStr?: string | number | null): number {
   if (!dateStr) return 0;
+  if (typeof dateStr === 'number') return dateStr;
   const parts = dateStr.trim().split(/\s+/);
   const year = parts.pop();
   const monthName = parts.join(' ').toLowerCase();
   // buscar en ambos mapas (por si llegan mezclados)
-  const en = monthMap.en[monthName];
-  const es = monthMap.es[monthName];
+  const en = monthMap.en[monthName as keyof typeof monthMap.en];
+  const es = monthMap.es[monthName as keyof typeof monthMap.es];
   const monthIndex = en ?? es;
   
   if (monthIndex != null && typeof year === "string" && /^\d{4}$/.test(year)) {
@@ -49,7 +46,7 @@ function parseMonthYear(dateStr?: string): number {
   return isNaN(parsed) ? 0 : parsed;
 }
 
-function toTrainCase(input: string): string {
+function toTrainCase(input?: string): string {
   if (!input) return "";
   // Normaliza acentos, elimina diacríticos, quita caracteres no alfanuméricos (salvo espacios)
   const cleaned = input
@@ -67,25 +64,29 @@ function toTrainCase(input: string): string {
 }
 
 // Normalizar eventos según el idioma seleccionado y parsear fecha
-const events: EventItem[] = educationEvents.map((entry) => {
-  const data = (language === "en" ? entry.data.en : entry.data.es) as {
-    date?: string;
-    title?: string;
-    description?: string;
-    location?: string;
-  };
+const events = educationEvents.map((entry): {
+  id: string;
+  date?: string;
+  title: string;
+  description?: string;
+  location?: string;
+  _ts: number;
+  buttonName: string;
+} => {
+  // entry.data puede contener objetos por idioma; intentar indexar por language y caer a un objeto genérico si no existe
+  const data = (entry.data as Record<string, EducationData>)[language] ?? (entry.data as EducationData);
 
-  const title = data.title ?? "event";
+  const title = data?.title ?? "event";
 
   return {
-    id: entry.id,
-    date: data.date,
-    title: data.title,
-    description: data.description,
-    location: data.location,
-    _ts: parseMonthYear(data.date),
+    id: String(entry.id),
+    date: data?.date,
+    title,
+    description: data?.description,
+    location: data?.location,
+    _ts: parseMonthYear(data?.date),
     buttonName: toTrainCase(title), // <-- propiedad nueva usable en botones
-  } as EventItem & { buttonName: string };
+  };
 });
 
 // Ordenar por fecha (descendente: más reciente primero)
@@ -132,7 +133,7 @@ events.sort((a, b) => b._ts - a._ts);
     <!-- Línea vertical (solo en móvil) -->
     <div class="absolute top-0 left-1.5 min-h-full flex-1 w-[3px] bg-my-gray z-0"></div>
 
-    { [...events].reverse().map((event) => (
+    { [...events].reverse().map((event, index) => (
       <div class="relative z-10 w-full flex flex-col items-start">
         <div class="w-full flex items-center">
           <!-- botón circular -->
@@ -142,7 +143,7 @@ events.sort((a, b) => b._ts - a._ts);
             aria-expanded="false"
             aria-controls={`panel-${event.buttonName}`}
             id={`btn-${event.buttonName}`}
-            class="w-4 h-4 bg-my-light-blue rounded-full mr-4 cursor-pointer transition-transform duration-150"
+            class={`w-4 h-4 bg-my-light-blue rounded-full mr-4 cursor-pointer transition-transform duration-150 ${index === 0 ? 'first-circle-pulse' : ''}`}
           />
           <!-- título a la derecha del botón (opcional) -->
           <div class="flex-1">
@@ -178,6 +179,54 @@ events.sort((a, b) => b._ts - a._ts);
     .edu-panel.open {
       /* suficiente para la mayoría de tooltips; aumenta si necesitas más */
       max-height: 560px;
+    }
+
+    /* Animación de pulso expansivo para el primer círculo que indica interactividad */
+    @keyframes pulse-ring {
+      0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.6);
+        opacity: 0.4;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+      }
+    }
+
+    .first-circle-pulse {
+      position: relative;
+    }
+
+    /* Primer anillo de pulso */
+    .first-circle-pulse::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgb(96, 165, 250); /* my-light-blue */
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      pointer-events: none;
+    }
+
+    /* Segundo anillo de pulso con delay */
+    .first-circle-pulse::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgb(96, 165, 250);
+      animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) 1s infinite;
+      pointer-events: none;
     }
   </style>
 
