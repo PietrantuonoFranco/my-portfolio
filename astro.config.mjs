@@ -14,6 +14,7 @@ export default defineConfig({
       MAIL: envField.string({ context: 'server', access: 'public' }),
       GITHUB: envField.string({ context: 'server', access: 'public' }),
       LINKEDIN: envField.string({ context: 'server', access: 'public' }),
+      TEL: envField.string({ context: 'server', access: 'public' }),
 
       CLOUDINARY_URL: envField.string({context: 'server', access: 'secret' }),
       CLOUDINARY_API_KEY: envField.string({context: 'server', access: 'secret' }),
