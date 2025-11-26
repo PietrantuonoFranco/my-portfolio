@@ -35,8 +35,8 @@ const { greet, title, description, img } = data;
         <ul class="flex flex-col sm:flex-row gap-4 items-center">
           <li class="w-full 2xl:w-52">
             <a
-              href={`/public/${language}/Franco_Pietrantuono_CV.pdf`}
-              download
+              href={`Franco_Pietrantuono_CV_${language}.pdf`}
+              download="Franco_Pietrantuono_CV.pdf"
               aria-label={language === "en" ? "Download CV" : "Descargar CV"}
               class="py-2 px-4 flex items-center justify-center gap-2 font-semibold text-sm rounded-xl shadow-md bg-gradient-to-br from-my-dark-blue to-my-dark-blue to-my-blue to-my-light-blue text-my-white hover:-translate-y-1 hover:shadow-blue hover:scale-102 active:translate-y-0 active:shadow-none transition-all duration-300 ease-in-out"
             >
