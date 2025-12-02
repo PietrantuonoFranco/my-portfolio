@@ -12,5 +12,5 @@ technologiesNames:
     - Cloudinary
 webSiteUrl: https://mmgruas.com.ar/
 repositoryUrl: 
-img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1741417625/mm-gruas_phvh0w.webp
+img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1764644767/mm-gruas-web_qn6a78.webp
 ---
