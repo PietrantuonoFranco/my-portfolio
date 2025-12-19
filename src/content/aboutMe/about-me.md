@@ -3,8 +3,8 @@ greet:
     es: Hola, mi nombre es 
     en: Hi, my name is 
 title:
-    es: Estudiante de Ingeniería en Sistemas de Información
-    en: Information Systems Engineering Student
+    es: Desarrollador de Software
+    en: Software Developer
 description:
     es: Soy un desarrollador de software y estudiante de Ingeniería en Sistemas de Información nacido en Argentina. Me gusta aprender nuevas cosas y enfrentarme a nuevos retos.
     en: I am a software developer and Information Systems Engineering student from Argentina. I like learning new things and facing new challenges.
