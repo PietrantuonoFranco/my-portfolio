@@ -1,7 +1,7 @@
 ---
 greet:
-    es: Hola, mi nombre es 
-    en: Hi, my name is 
+    es: Hola, soy 
+    en: Hi, I am 
 title:
     es: Desarrollador de Software
     en: Software Developer
