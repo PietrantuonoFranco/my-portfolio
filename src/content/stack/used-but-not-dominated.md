@@ -4,7 +4,12 @@ technologiesNames:
     - Astro
     - Sequelize
     - Python
+    - LangChain
     - Django
+    - Playwright
+    - Pytest
+    - Milvus
+    - FastAPI
     - Flask
     - Jenkins
     - Nginx
