@@ -130,9 +130,9 @@ technologies.forEach((tech) => {
       {/* Languages */}
       <div class="space-y-8">
         <h3 class="relative text-center text-2xl text-my-yellow font-semibold">
-          {language === "en" ? "Languages" : "Lenguajes"}<span class="text-my-red">.</span>
+          {language === "en" ? "Languages" : "Idiomas"}<span class="text-my-red">.</span>
 
-          <span class="w-24 bg-my-white rounded-full shadow-lg absolute left-1/2 transform translate-y-1 -translate-x-1/2 bottom-0 h-0.5"></span>
+          <span class={`${language === "en" ? "w-24" : "w-16" } bg-my-white rounded-full shadow-lg absolute left-1/2 transform translate-y-1 -translate-x-1/2 bottom-0 h-0.5`}></span>
         </h3>
         <div class="grid grid-cols-2">
           <div class="flex flex-col items-center space-y-4
@@ -149,7 +149,7 @@ technologies.forEach((tech) => {
 
             <svg xmlns="http://www.w3.org/2000/svg" class="w-[80px] h-[60px] md:w-[160px] md:h-[120px] shadow-md" viewBox="0 0 640 480"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="m75 0l244 181L562 0h78v62L400 241l240 178v61h-80L320 301L81 480H0v-60l239-178L0 64V0z"/><path fill="#c8102e" d="m424 281l216 159v40L369 281zm-184 20l6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"/><path fill="#fff" d="M241 0v480h160V0zM0 160v160h640V160z"/><path fill="#c8102e" d="M0 193v96h640v-96zM273 0v480h96V0z"/></svg>
 
-            <p class="text-my-white text-center drop-shadow-sm">{language === "en" ? "Level B1 (Intermediate)" : "Nivel B1 (Intermedio)"}</p>
+            <p class="text-my-white text-center drop-shadow-sm">{language === "en" ? "Intermediate" : "Intermedio"}</p>
           </div>
         </div>
       </div>
