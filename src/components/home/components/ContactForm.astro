@@ -1,0 +1,209 @@
+---
+const { language } = Astro.props;
+---
+
+<div class="bg-[#2A2A2A60] rounded-3xl shadow-lg p-8 md:p-10">
+  <h2 class="text-3xl md:text-4xl font-bold mb-8">
+    {language === "en" ? "Send me a" : "Envíame un"}
+    <span class="text-my-light-blue">
+      {language === "en" ? "Message" : "Mensaje"}
+    </span>
+  </h2>
+
+  <form id="contact-form" class="space-y-6">
+    <!-- Nombre y Email -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <label for="name" class="block text-my-yellow font-medium mb-2 flex spaxe-x-1">
+          Nombre
+          <span class="text-my-red flex items-start">*</span>
+        </label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name"
+          placeholder={language === "en" ? "Your name" : "Tu nombre"}
+          class="w-full px-4 py-3 rounded-lg bg-transparent text-my-light-gray border-b border-my-light-gray focus:outline-none focus:ring-1 focus:ring-my-light-blue focus:border-transparent transition-all"
+          required
+        >
+        <span class="text-red-500 text-sm hidden error-message" id="nombre-error"></span>
+      </div>
+      <div>
+        <label for="email" class="block text-my-yellow font-medium mb-2 flex spaxe-x-1">
+          Email
+          <span class="text-my-red flex items-start">*</span>
+        </label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email"
+          placeholder={`${language === "en" ? "you" : "tu"}@email.com`}
+          class="w-full px-4 py-3 rounded-lg bg-transparent text-my-light-gray border-b border-my-light-gray focus:outline-none focus:ring-1 focus:ring-my-light-blue focus:border-transparent transition-all"
+          required
+        >
+        <span class="text-red-500 text-sm hidden error-message" id="email-error"></span>
+      </div>
+    </div>
+
+    <!-- Subject -->
+    <div>
+      <label for="subject" class="block text-my-yellow font-medium mb-2 flex spaxe-x-1">
+        {language === "en" ? "Subject" : "Asunto"}
+        <span class="text-my-red flex items-start">*</span>
+      </label>
+      <input 
+        type="text" 
+        id="subject" 
+        name="subject"
+        placeholder={language === "en" ? "Message subject" : "Asunto del mensaje"}
+        class="w-full px-4 py-3 rounded-lg bg-transparent text-my-light-gray border-b border-my-light-gray focus:outline-none focus:ring-1 focus:ring-my-light-blue focus:border-transparent transition-all"
+        required
+      >
+      <span class="text-red-500 text-sm hidden error-message" id="subject-error"></span>
+    </div>
+
+    <!-- Mensaje -->
+    <div>
+      <label for="message" class="block text-my-yellow font-medium mb-2 flex spaxe-x-1">
+        Mensaje
+        <span class="text-my-red flex items-start">*</span>
+      </label>
+      <textarea 
+        id="message" 
+        name="message"
+        rows="6"
+        placeholder={language === "en" ? "Your message here..." : "Tu mensaje aquí..."}
+        class="w-full px-4 py-3 rounded-lg bg-transparent text-my-light-gray border-b border-my-light-gray focus:outline-none focus:ring-1 focus:ring-my-light-blue focus:border-transparent transition-all resize-none"
+        required
+      />
+      <span class="text-red-500 text-sm hidden error-message" id="message-error"></span>
+    </div>
+
+    <!-- Botón de enviar -->
+    <button 
+      type="submit" 
+      id="submitBtn"
+      class="m-0 mt-12 cursor-pointer w-full py-3 px-4 flex items-center justify-center gap-2 font-semibold rounded-xl shadow-md bg-gradient-to-br from-my-dark-blue to-my-dark-blue to-my-blue to-my-light-blue text-my-white hover:-translate-y-1 hover:shadow-blue hover:scale-102 active:translate-y-0 active:shadow-none transition-all duration-300 ease-in-out"
+    >
+      <span id="btnText">{language === "en" ? "Send Message" : "Enviar Mensaje"}</span>
+      <svg id="btnIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+      </svg>
+      <svg id="loadingIcon" class="w-5 h-5 animate-spin hidden" fill="none" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </button>
+
+    <!-- Mensaje de éxito -->
+    <div id="successMessage" class="hidden bg-green-50 border-b border-green-200 text-green-800 px-4 py-3 rounded-lg">
+      <p class="font-medium">Mensaje enviado con éxito</p>
+      <p class="text-sm">Te responderemos pronto.</p>
+    </div>
+  </form>
+</div>
+
+
+<script>
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+    const btnText = document.getElementById('btnText') as HTMLElement | null;
+    const btnIcon = document.getElementById('btnIcon') as HTMLElement | null;
+    const loadingIcon = document.getElementById('loadingIcon') as HTMLElement | null;
+    const successMessage = document.getElementById('successMessage') as HTMLElement | null;
+
+    // Validación en tiempo real
+    const inputs = form?.querySelectorAll('input, textarea') as NodeListOf<HTMLInputElement | HTMLTextAreaElement> | undefined;
+    inputs?.forEach((input: HTMLInputElement | HTMLTextAreaElement) => {
+        input.addEventListener('blur', function(this: HTMLInputElement | HTMLTextAreaElement) {
+            validateField(this);
+        });
+
+        input.addEventListener('input', function(this: HTMLInputElement | HTMLTextAreaElement) {
+            if (this.classList.contains('border-red-500')) {
+                validateField(this);
+            }
+        });
+    });
+
+    function validateField(field: HTMLInputElement | HTMLTextAreaElement): boolean {
+        const errorSpan = document.getElementById(`${field.id}-error`);
+        let isValid = true;
+        let errorMessage = '';
+
+        if (field.value.trim() === '') {
+            isValid = false;
+            errorMessage = 'Este campo es requerido';
+        } else if ((field as HTMLInputElement).type === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(field.value)) {
+                isValid = false;
+                errorMessage = 'Por favor ingresa un email válido';
+            }
+        }
+
+        if (!isValid) {
+            field.classList.add('border-my-red');
+            field.classList.remove('border-my-light-gray');
+            if (errorSpan) {
+                errorSpan.textContent = errorMessage;
+                errorSpan.classList.remove('hidden');
+            }
+        } else {
+            field.classList.remove('border-my-red');
+            field.classList.add('border-my-light-gray');
+            if (errorSpan) {
+                errorSpan.classList.add('hidden');
+            }
+        }
+
+        return isValid;
+    }
+
+    if (form && submitBtn && btnText && btnIcon && loadingIcon && successMessage && inputs) {
+        form.addEventListener('submit', async function(e: SubmitEvent) {
+            e.preventDefault();
+
+            // Validar todos los campos
+            let isValid = true;
+            inputs.forEach((input: HTMLInputElement | HTMLTextAreaElement) => {
+                if (!validateField(input)) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) return;
+
+            // Mostrar estado de carga
+            submitBtn.disabled = true;
+            btnText.textContent = 'Enviando...';
+            btnIcon.classList.add('hidden');
+            loadingIcon.classList.remove('hidden');
+            successMessage.classList.add('hidden');
+
+            // Simular envío (aquí conectarías con tu backend)
+            try {
+                await new Promise(resolve => setTimeout(resolve, 2000));
+
+                // Mostrar mensaje de éxito
+                successMessage.classList.remove('hidden');
+                form.reset();
+                
+                // Resetear botón
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    btnText.textContent = 'Enviar Mensaje';
+                    btnIcon.classList.remove('hidden');
+                    loadingIcon.classList.add('hidden');
+                }, 1000);
+
+            } catch (error) {
+                alert('Error al enviar el mensaje. Por favor intenta nuevamente.');
+                submitBtn.disabled = false;
+                btnText.textContent = 'Enviar Mensaje';
+                btnIcon.classList.remove('hidden');
+                loadingIcon.classList.add('hidden');
+            }
+        });
+    }
+</script>

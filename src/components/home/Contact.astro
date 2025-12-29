@@ -1,0 +1,15 @@
+---
+import ContactInformation from "./components/ContactInformation.astro";
+import ContactForm from "./components/ContactForm.astro";
+
+
+const { language } = Astro.props;
+---
+
+<section id="contact" class="grid md:grid-cols-2 gap-6 text-my-white">
+  <!-- Información de Contacto -->
+  <ContactInformation language={language}/>
+
+  <!-- Formulario -->
+  <ContactForm language={language}/>
+</section>
