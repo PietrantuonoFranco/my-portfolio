@@ -5,12 +5,15 @@ technologiesNames:
     - Sequelize
     - Python
     - LangChain
+    - LangGraph
+    - SQLAlchemy
     - Django
     - Playwright
     - Pytest
     - Milvus
     - FastAPI
     - Flask
+    - Chainlit
     - Jenkins
     - Nginx
     - Azure
