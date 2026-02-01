@@ -1,16 +1,12 @@
 ---
 technologiesNames:
     - TypeScript
-    - JavaScript
-    - HTML
-    - CSS
-    - TailwindCSS
+    - Python
+    - FastAPI
+    - SQLAlchemy
     - PostgreSQL
     - React
     - NextJS
-    - TypeORM
-    - NodeJS
-    - Express
+    - TailwindCSS
     - Docker
-    - Git
 ---
