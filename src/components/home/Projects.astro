@@ -82,11 +82,11 @@ technologies.forEach((tech) => {
                   const heightMatch = svg.match(/height=["']?(\d+)["']?/);
                   const heightValue = heightMatch ? heightMatch[1] : null;
 
-                  const updatedSVG = svg.replace(/width=["']?(\d+)["']?/, `width="${calculateWidthFit(Number(widthValue), Number(heightValue), Number(12))}px"`).replace(/height=["']?(\d+)["']?/, `height="${12}px"`);
+                  const updatedSVG = svg.replace(/width=["']?(\d+)["']?/, `width="${calculateWidthFit(Number(widthValue), Number(heightValue), Number(14))}px"`).replace(/height=["']?(\d+)["']?/, `height="${14}px"`);
 
                   return (
                     <div class="flex items-center justify-center space-x-2 px-2.5 py-1 rounded-lg bg-white/7 shadow-sm">
-                      <div class="hover:drop-shadow-md group-hover:scale-110 transition-all duration-300 ease-in-out" set:html={updatedSVG}></div>
+                      <div class="hover:drop-shadow-md group-hover:scale-101 transition-all duration-300 ease-in-out" set:html={updatedSVG}></div>
                       <p class="text-xs text-white/85">
                         {technologyName}
                       </p>
