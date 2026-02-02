@@ -9,15 +9,16 @@ technologiesNames:
     - Flask
     - Chainlit
     - Django
-    - Jenkins
-    - Nginx
     - Azure
     - Vercel
-    - Cloudinary
     - Supabase
+    - Cloudflare Workers
+    - Cloudinary
     - GitHub Actions
+    - Jenkins
     - Bash
     - Git
+    - Nginx
     - Astro
     - TypeORM
     - JavaScript
