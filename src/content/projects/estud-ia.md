@@ -11,6 +11,7 @@ technologiesNames:
     - LangChain
     - LangGraph
     - Milvus
+    - GeminiAPI
     - FastAPI
     - SQLAlchemy
     - Docker

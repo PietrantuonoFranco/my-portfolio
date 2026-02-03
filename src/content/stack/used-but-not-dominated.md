@@ -4,6 +4,8 @@ technologiesNames:
     - LangGraph
     - Milvus
     - Express
+    - GeminiAPI
+    - Ollama
     - Playwright
     - Pytest
     - Flask
