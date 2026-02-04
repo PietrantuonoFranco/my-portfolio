@@ -1,22 +1,32 @@
 ---
 technologiesNames:
-    - Bash
-    - Astro
-    - Sequelize
-    - Python
     - LangChain
-    - Django
+    - LangGraph
+    - Milvus
+    - Express
+    - GeminiAPI
+    - Ollama
     - Playwright
     - Pytest
-    - Milvus
-    - FastAPI
     - Flask
-    - Jenkins
-    - Nginx
+    - Chainlit
+    - Django
     - Azure
     - Vercel
-    - Cloudinary
     - Supabase
+    - Cloudflare Workers
+    - Cloudinary
     - GitHub Actions
+    - Jenkins
+    - Bash
+    - Git
+    - Nginx
+    - Astro
+    - TypeORM
+    - JavaScript
+    - Sequelize
+    - NodeJS
+    - HTML
+    - CSS
     - Photoshop
 ---
