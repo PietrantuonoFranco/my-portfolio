@@ -12,6 +12,7 @@ technologiesNames:
     - TailwindCSS
     - PostgreSQL
     - Docker
+    - Express
     - TypeORM
     - Nginx
     - Azure
