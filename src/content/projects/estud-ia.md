@@ -22,5 +22,5 @@ technologiesNames:
     - TailwindCSS
 webSiteUrl:
 repositoryUrl:
-img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1769662284/estudia_bat9yr.png
+img: https://res.cloudinary.com/dmfr1l3tj/image/upload/v1771017986/estudia_ttxgyh.png
 ---
